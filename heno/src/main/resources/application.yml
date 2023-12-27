@@ -1,0 +1,22 @@
+spring:
+    flyway:
+        locations: classpath:db/migration
+        url: jdbc:mysql://localhost:3306/heno_db
+        user: root
+        password: 19804731205
+    jpa:
+        hibernate:
+            ddl-auto: update
+        generate-ddl: true
+    datasource:
+       url: jdbc:mysql://localhost:3306/heno_db
+       username: root
+       password: 19804731205
+server:
+    address: 0.0.0.0
+    port: 8080
+testing:
+    app:
+        secret: sdkskdjfsk4h4egfjhrdh
+        lifetime: 60000
+
