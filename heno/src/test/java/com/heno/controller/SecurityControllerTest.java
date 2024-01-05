@@ -5,6 +5,7 @@ import com.heno.config.JwtCore;
 import com.heno.dto.SignInDto;
 import com.heno.dto.SignUpDto;
 import com.heno.repository.UserRepository;
+import com.heno.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,16 +15,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import java.util.Collections;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
  * Unit tests for the SecurityController class.
@@ -38,7 +37,8 @@ class SecurityControllerTest {
     private JwtCore jwtCore;
     @Mock
     PasswordEncoder passwordEncoder;
-
+    @Mock
+    UserService userService;
     @Mock
     private UserRepository userRepository;
 
@@ -50,7 +50,7 @@ class SecurityControllerTest {
     @BeforeEach
     void setup() {
         // Initialize the MockMvc instance for testing
-        mockMvc = MockMvcBuilders.standaloneSetup(securityController).build();
+        mockMvc = standaloneSetup(securityController).build();
     }
 
     /**
@@ -68,14 +68,7 @@ class SecurityControllerTest {
         // Create a Sign In DTO with test credentials
         SignInDto signInDto = new SignInDto(username, password);
 
-        // Create an Authentication token
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, password);
-
-        // Mock the behavior of the Authentication Manager and JwtCore
-        when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
-                .thenReturn(authentication);
-        when(jwtCore.generateToken(authentication)).thenReturn(jwtToken);
-
+        doReturn(jwtToken).when(userService).loginUser(signInDto);
         // Perform the HTTP request to the sign-in endpoint and verify the expected outcome
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/signIn")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -99,8 +92,7 @@ class SecurityControllerTest {
         SignInDto signInDto = new SignInDto(username, password);
 
         // Mock the behavior of the Authentication Manager to throw BadCredentialsException
-        when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
-                .thenThrow(BadCredentialsException.class);
+        doThrow(BadCredentialsException.class).when(userService).loginUser(signInDto);
 
         // Perform the HTTP request to the sign-in endpoint and verify the expected unauthorized status
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/signIn")
@@ -117,10 +109,11 @@ class SecurityControllerTest {
     @Test
     void signUp_Success() throws Exception {
         // Create a Sign-Up DTO with new user credentials
-        SignUpDto signUpDto = new SignUpDto("newUser", "password");
+        SignUpDto signUpDto = new SignUpDto("email","fio","number","newUser", "password", Collections.emptySet());
+
 
         // Mock the behavior of the UserRepository to indicate that the username does not exist
-        when(userRepository.existsByUsername(signUpDto.username())).thenReturn(false);
+        doNothing().when(userService).addUser(signUpDto);
 
         // Perform the HTTP request to the sign-up endpoint and verify the expected success status
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/signUp")
@@ -138,10 +131,10 @@ class SecurityControllerTest {
     @Test
     void signUp_UserAlreadyExists() throws Exception {
         // Create a Sign-Up DTO with credentials of an existing user
-        SignUpDto signUpDto = new SignUpDto("existingUser", "password");
+        SignUpDto signUpDto = new SignUpDto("email","fio","number","existingUser", "password", Collections.emptySet());
 
         // Mock the behavior of the UserRepository to indicate that the username already exists
-        when(userRepository.existsByUsername(signUpDto.username())).thenReturn(true);
+        doThrow(new RuntimeException("Choose a different name")).when(userService).addUser(signUpDto);
 
         // Perform the HTTP request to the sign-up endpoint and verify the expected bad request status
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/signUp")

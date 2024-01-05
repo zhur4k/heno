@@ -27,6 +27,19 @@ public class User implements UserDetails{
     private Long id;
 
     /**
+     * Field "Email"
+     */
+    private String email;
+    /**
+     * Field "FullName"
+     */
+    private String FIO;
+    /**
+     * Field "Number"
+     */
+    private String number;
+
+    /**
      * Field "Password"
      */
     private String password;
@@ -37,7 +50,7 @@ public class User implements UserDetails{
     private String username;
 
     /**
-     * Field "Role"
+     * Field "Roles"
      */
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))

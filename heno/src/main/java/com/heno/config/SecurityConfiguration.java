@@ -1,6 +1,6 @@
 package com.heno.config;
 
-import com.heno.service.UserService;
+import com.heno.service.UserUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,17 +27,17 @@ import org.springframework.web.cors.CorsConfiguration;
 @EnableWebSecurity
 public class SecurityConfiguration{
 
-    private UserService userService;
+    private UserUserDetailsService userUserDetailsService;
     private TokenFilter tokenFilter;
 
     /**
-     * Sets the UserService bean.
+     * Sets the UserUserDetailsService bean.
      *
-     * @param userService The UserService bean to be set.
+     * @param userUserDetailsService The UserService bean to be set.
      */
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setUserUserDetailsService(UserUserDetailsService userUserDetailsService) {
+        this.userUserDetailsService = userUserDetailsService;
     }
 
     /**
@@ -130,7 +130,7 @@ public class SecurityConfiguration{
             AuthenticationManagerBuilder authenticationManagerBuilder
     ) throws Exception {
         // Configure the authentication manager with the UserService and PasswordEncoder
-        authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(userUserDetailsService).passwordEncoder(passwordEncoder());
         return authenticationManagerBuilder;
     }
 }
