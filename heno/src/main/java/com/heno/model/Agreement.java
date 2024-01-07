@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Entity describing the agreement.
@@ -39,17 +41,29 @@ public class Agreement{
      * Field "The employee who made the sale"
      */
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User employee;
     /**
      * Field "Type of the sale"
      */
     @ManyToOne
+    @JoinColumn(name = "sale_type_id")
     private SaleType saleType;
     /**
-     * Field "Type of the sale"
+     * Field "Info about buyer"
      */
     @ManyToOne
-    private Buyer buyer;//6
+    @JoinColumn(name = "buyer_id")
+    private Buyer buyer;
+    /**
+     * Field "Products in agreement"
+     */
+    @ManyToMany
+    @JoinTable(
+            name = "agreement_product",
+            joinColumns = @JoinColumn(name = "agreement_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> products = new ArrayList<>();
 
     public Agreement() {
 
