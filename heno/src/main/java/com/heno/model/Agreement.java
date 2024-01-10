@@ -4,9 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 /**
@@ -33,11 +32,11 @@ public class Agreement{
     /**
      * Field "Date of agreement"
      */
-    private LocalDateTime dateOfAgreement;
+    private LocalDate dateOfAgreement;
     /**
      * Field "Date of registration  of agreement "
      */
-    private LocalDateTime dateOfRegistrationAgreement;
+    private LocalDate dateOfRegistrationAgreement;
     /**
      * Field "The employee who made the sale"
      */
@@ -59,15 +58,21 @@ public class Agreement{
     /**
      * Field "Products in agreement"
      */
-    @ManyToMany
-    @JoinTable(
-            name = "agreement_product",
-            joinColumns = @JoinColumn(name = "agreement_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @OneToMany
     private List<Product> products = new ArrayList<>();
-
+    /**
+     * Field "Currency of agreement"
+     */
     @ManyToOne
+    @JoinColumn(name = "currency_id")
     private AgreementCurrency currency;
+    /**
+     * Field "Payment date of agreement"
+     */
+    @OneToMany
+    @JoinColumn(name = "payment_date_id")
+    private List<PaymentDate> paymentDate;
+
     public Agreement() {
 
     }

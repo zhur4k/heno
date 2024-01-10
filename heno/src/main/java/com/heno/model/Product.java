@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 /**
  * Entity describing the product.
@@ -27,24 +26,39 @@ public class Product {
      */
     private String name;
     /**
-     * Field "Additional equipment"
+     * Field "Price"
      */
-    private String additionalEquipment;
+    private BigDecimal price;
+
     /**
      * Field "Quantity"
      */
     private Integer quantity;
     /**
-     * Field "Price"
+     * Field "Additional equipment"
      */
-    private BigDecimal price;
+    private String additionalEquipment;
+    /**
+     * Field "Delivery time"
+     */
+    private LocalDate deliveryTime;
     /**
      * Field "Unit"
      */
     @ManyToOne
     @JoinColumn(name = "unit_id")
     private Unit unit;
+    /**
+     * Field "Provider the products"
+     */
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Provider provider;
+    /**
+     * Field "Shipment info"
+     */
+    @ManyToOne
+    @JoinColumn(name = "shipment_id")
+    private Shipment shipment;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Agreement> agreements = new ArrayList<>();
 }
