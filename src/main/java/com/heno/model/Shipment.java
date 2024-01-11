@@ -17,9 +17,10 @@ public class Shipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
-    private String name;
+    /**
+     * Field "Additional Information"
+     */
+    private String additionalInformation;
     /**
      * Field "Shipping type"
      */

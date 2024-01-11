@@ -9,16 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Entity describing the agreement.
+ * Entity describing the sale agreement.
  */
 @Entity
 @Data
 @AllArgsConstructor
-@Table(name = "agreements")
-public class Agreement{
+@Table(name = "sale_agreements")
+public class SaleAgreement {
 
     /**
-     * Field "Id(Agreement id in date base)"
+     * Field "Id(Sales agreement id in date base)"
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +37,10 @@ public class Agreement{
      * Field "Date of registration  of agreement "
      */
     private LocalDate dateOfRegistrationAgreement;
+    /**
+     * Field "Date of supplies"
+     */
+    private LocalDate dateOfSupplies;
     /**
      * Field "The employee who made the sale"
      */
@@ -72,8 +76,18 @@ public class Agreement{
     @OneToMany
     @JoinColumn(name = "payment_date_id")
     private List<PaymentDate> paymentDate;
-
-    public Agreement() {
+    /**
+     * Field "Shipment info"
+     */
+    @ManyToOne
+    @JoinColumn(name = "shipment_id")
+    private Shipment shipment;
+    /**
+     * Field "Shipment info"
+     */
+    @OneToMany
+    private List<SupplyAgreement> supplyAgreement;
+    public SaleAgreement() {
 
     }
 }

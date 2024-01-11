@@ -54,11 +54,6 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private Provider provider;
-    /**
-     * Field "Shipment info"
-     */
-    @ManyToOne
-    @JoinColumn(name = "shipment_id")
-    private Shipment shipment;
+
 
 }
