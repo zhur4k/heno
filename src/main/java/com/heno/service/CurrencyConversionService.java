@@ -6,6 +6,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.util.Objects;
 
 @Service
 public class CurrencyConversionService {
@@ -54,12 +56,15 @@ public class CurrencyConversionService {
      * @param fromCurrency The currency for which to fetch the exchange rate.
      * @return The exchange rate for the specified currency.
      */
-    private AgreementCurrency getExchangeCurrency(AgreementCurrency fromCurrency){
-        String apiUrl = NB_RB_API_URL+fromCurrency.getCur_ID();
+    public AgreementCurrency getExchangeCurrency(AgreementCurrency fromCurrency){
+        if(Objects.equals(fromCurrency.getCur_date(), LocalDate.now())){
+            return fromCurrency;
+        }
 
         // Request to NB RB API for obtaining the currency exchange rate
-        AgreementCurrency currency = restTemplate.getForObject(apiUrl, AgreementCurrency.class);
-        System.out.println(currency);
+        AgreementCurrency currency = restTemplate.getForObject(
+                NB_RB_API_URL+fromCurrency.getCur_ID(),
+                AgreementCurrency.class);
         if (currency == null) {
             throw new RuntimeException("Failed to retrieve exchange rate from NB RB API.");
         }

@@ -31,7 +31,7 @@ class CurrencyConversionServiceIntegrationTest {
         assertNotNull(responseEntity.getBody());
 
         // Print the exchange rate for demonstration purposes
-        BigDecimal officialRate = responseEntity.getBody().getCur_OfficialRate();
-        System.out.println("Official Rate for " + currencyCode + ": " + officialRate);
+        AgreementCurrency agreementCurrency = responseEntity.getBody();
+        System.out.println(agreementCurrency);
     }
 }

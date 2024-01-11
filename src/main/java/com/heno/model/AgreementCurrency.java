@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 /**
  * Entity describing the currency of an agreement.
@@ -26,7 +27,11 @@ public class AgreementCurrency {
      */
     @JsonProperty("Cur_ID")
     private String Cur_ID;
-
+    /**
+     * Field "Date of last request"
+     */
+    @JsonProperty("Date")
+    private LocalDate cur_date;
     /**
      * Field "Letter code"
      */
