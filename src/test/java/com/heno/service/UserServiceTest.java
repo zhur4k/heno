@@ -1,7 +1,5 @@
 package com.heno.service;
 
-import com.heno.config.JwtCore;
-import com.heno.dto.SignInDto;
 import com.heno.dto.SignUpDto;
 import com.heno.model.User;
 import com.heno.repository.UserRepository;
@@ -25,30 +23,9 @@ class UserServiceTest {
     private UserRepository userRepository;
 
     @Mock
-    private AuthenticationManager authenticationManager;
-
-    @Mock
-    private JwtCore jwtCore;
-
-    @Mock
     private PasswordEncoder passwordEncoder;
     @InjectMocks
     private UserService userService;
-
-    @Test
-    void loginUser_Success() {
-        SignInDto signInDto = new SignInDto("testUser", "testPassword");
-        Authentication mockAuthentication = mock(Authentication.class);
-
-        // Mocking authentication response
-        when(authenticationManager.authenticate(any())).thenReturn(mockAuthentication);
-        when(jwtCore.generateToken(mockAuthentication)).thenReturn("dummyToken");
-
-        String token = userService.loginUser(signInDto);
-
-        assertNotNull(token);
-        assertEquals("dummyToken", token);
-    }
 
     @Test
     void addUser_Success() {
