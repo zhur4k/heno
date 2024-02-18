@@ -23,21 +23,6 @@ public class SecurityController {
     }
 
     /**
-     * Handles the authentication process for user sign-in.
-     *
-     * @param signInDto The DTO containing the username and password for sign-in.
-     * @return ResponseEntity containing a JWT token on successful authentication or an UNAUTHORIZED status on failure.
-     */
-    @PostMapping("/signIn")
-    public ResponseEntity<?> signIn(@RequestBody SignInDto signInDto) {
-        try {
-            return ResponseEntity.ok(userService.loginUser(signInDto));
-        }catch(BadCredentialsException e){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    /**
      * Handles the registration process for user sign-up.
      *
      * @param signUpDto The DTO containing the User info for sign-up.

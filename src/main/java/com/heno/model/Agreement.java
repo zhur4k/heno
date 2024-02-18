@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @Table(name = "sale_agreements")
-public class SaleAgreement {
+public class Agreement {
 
     /**
      * Field "Id(Sales agreement id in date base)"
@@ -82,12 +82,8 @@ public class SaleAgreement {
     @ManyToOne
     @JoinColumn(name = "shipment_id")
     private Shipment shipment;
-    /**
-     * Field "Shipment info"
-     */
-    @OneToMany
-    private List<SupplyAgreement> supplyAgreement;
-    public SaleAgreement() {
+
+    public Agreement() {
 
     }
 }

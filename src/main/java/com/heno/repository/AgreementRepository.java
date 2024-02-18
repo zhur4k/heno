@@ -1,6 +1,6 @@
 package com.heno.repository;
 
-import com.heno.model.SaleAgreement;
+import com.heno.model.Agreement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
  * Agreement entity repository.
  */
 @Repository
-public interface SalesAgreementRepository extends JpaRepository<SaleAgreement,Long> {
+public interface AgreementRepository extends JpaRepository<Agreement,Long> {
 
 }

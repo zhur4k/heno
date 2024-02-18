@@ -20,3 +20,7 @@ testing:
         secret: sdkskdjfsk4h4egfjhrdh
         lifetime: 60000
 
+logging:
+    level:
+        org.springframework.web: DEBUG
+        org.springframework.security: DEBUG
