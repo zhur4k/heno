@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Dto class to edit user information.
  */
-public record UserEditDto(
+public record EmployeeEditDto(
         Long id,
         String email,
         String FIO,

@@ -1,7 +1,7 @@
 package com.heno.controller;
 
-import com.heno.dto.SignUpDto;
-import com.heno.dto.UserEditDto;
+import com.heno.dto.EmployeeAddDto;
+import com.heno.dto.EmployeeEditDto;
 import com.heno.model.Role;
 import com.heno.model.User;
 import com.heno.repository.UserRepository;
@@ -94,7 +94,7 @@ public class EmployeeControllerTest {
     }
 
     /**
-     * Test for the {@link EmployeeController#addEmployee(SignUpDto signUpDto)} method.
+     * Test for the {@link EmployeeController#addEmployee(EmployeeAddDto employeeAddDto)} method.
      * Verifies that the endpoint returns a success response after adding a new user.
      */
     @Test
@@ -103,7 +103,7 @@ public class EmployeeControllerTest {
 
         // Act
         ResponseEntity<?> response = employeeController.addEmployee(
-                new SignUpDto("test@email.com"
+                new EmployeeAddDto("test@email.com"
                         , "John Doe"
                         , "123456789"
                         , "testUser"
@@ -112,11 +112,11 @@ public class EmployeeControllerTest {
 
         // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        verify(userService).addUser(Mockito.any(SignUpDto.class));
+        verify(userService).addUser(Mockito.any(EmployeeAddDto.class));
     }
 
     /**
-     * Test for the {@link EmployeeController#editEmployee(UserEditDto userEditDto)} method.
+     * Test for the {@link EmployeeController#editEmployee(EmployeeEditDto employeeEditDto)} method.
      * Verifies that the endpoint returns a success response after editing an existing user.
      */
     @Test
@@ -124,7 +124,7 @@ public class EmployeeControllerTest {
         // Arrange (no additional setup needed)
 
         // Act
-        ResponseEntity<?> response = employeeController.editEmployee(new UserEditDto(
+        ResponseEntity<?> response = employeeController.editEmployee(new EmployeeEditDto(
                 1L
                 , "test@email.com"
                 , "John Doe"
@@ -135,6 +135,6 @@ public class EmployeeControllerTest {
 
         // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        verify(userService).editUser(Mockito.any(UserEditDto.class));
+        verify(userService).editUser(Mockito.any(EmployeeEditDto.class));
     }
 }

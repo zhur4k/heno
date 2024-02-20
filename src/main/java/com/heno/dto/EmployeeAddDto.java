@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Dto class to sign up user information.
  */
-public record SignUpDto(
+public record EmployeeAddDto(
         String email,
         String FIO,
         String number,

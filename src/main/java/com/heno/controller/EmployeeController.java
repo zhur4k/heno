@@ -1,7 +1,7 @@
 package com.heno.controller;
 
-import com.heno.dto.SignUpDto;
-import com.heno.dto.UserEditDto;
+import com.heno.dto.EmployeeAddDto;
+import com.heno.dto.EmployeeEditDto;
 import com.heno.repository.UserRepository;
 import com.heno.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -58,13 +58,13 @@ public class EmployeeController {
     /**
      * Endpoint to add a new employee.
      *
-     * @param signUpDto The SignUpDto containing information for creating a new user.
+     * @param employeeAddDto The SignUpDto containing information for creating a new user.
      * @return ResponseEntity indicating success or failure with appropriate HTTP status codes.
      */
     @PostMapping("/add")
-    public ResponseEntity<?> addEmployee(SignUpDto signUpDto) {
+    public ResponseEntity<?> addEmployee(EmployeeAddDto employeeAddDto) {
         try {
-            userService.addUser(signUpDto);
+            userService.addUser(employeeAddDto);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -74,13 +74,13 @@ public class EmployeeController {
     /**
      * Endpoint to edit an existing employee.
      *
-     * @param userEditDto The UserEditDto containing information for editing an existing user.
+     * @param employeeEditDto The UserEditDto containing information for editing an existing user.
      * @return ResponseEntity indicating success or failure with appropriate HTTP status codes.
      */
     @PostMapping("/edit")
-    public ResponseEntity<?> editEmployee(UserEditDto userEditDto) {
+    public ResponseEntity<?> editEmployee(EmployeeEditDto employeeEditDto) {
         try {
-            userService.editUser(userEditDto);
+            userService.editUser(employeeEditDto);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

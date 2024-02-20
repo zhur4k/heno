@@ -1,9 +1,9 @@
 package com.heno.service;
 
-import com.heno.dto.SignUpDto;
-import com.heno.dto.UserEditDto;
-import com.heno.dto.mapper.SignUpDtoMapper;
-import com.heno.dto.mapper.UserEditDtoMapper;
+import com.heno.dto.EmployeeAddDto;
+import com.heno.dto.EmployeeEditDto;
+import com.heno.dto.mapper.EmployeeAddDtoMapper;
+import com.heno.dto.mapper.EmployeeEditDtoMapper;
 import com.heno.model.User;
 import com.heno.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,47 +17,45 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final SignUpDtoMapper signUpDtoMapper;
-    private final UserEditDtoMapper userEditDtoMapper;
+    private final EmployeeAddDtoMapper employeeAddDtoMapper;
+    private final EmployeeEditDtoMapper employeeEditDtoMapper;
 
     /**
      * Constructor for UserService.
      *
-     * @param userRepository      The UserRepository for accessing user data.
-     * @param passwordEncoder     The PasswordEncoder for encoding user passwords.
-     * @param signUpDtoMapper     The SignUpDtoMapper for mapping SignUpDto to User entity.
-     * @param userEditDtoMapper   The UserEditDtoMapper for mapping UserEditDto to User entity.
+     * @param employeeAddDtoMapper      The SignUpDtoMapper for mapping SignUpDto to User entity.
+     * @param employeeEditDtoMapper     The UserEditDtoMapper for mapping UserEditDto to User entity.
+     * @param userRepository        The UserRepository for accessing user data.
+     * @param passwordEncoder       The PasswordEncoder for encoding user passwords.
      */
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-                       SignUpDtoMapper signUpDtoMapper, UserEditDtoMapper userEditDtoMapper) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmployeeAddDtoMapper employeeAddDtoMapper, EmployeeEditDtoMapper employeeEditDtoMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.signUpDtoMapper = signUpDtoMapper;
-        this.userEditDtoMapper = userEditDtoMapper;
+        this.employeeAddDtoMapper = employeeAddDtoMapper;
+        this.employeeEditDtoMapper = employeeEditDtoMapper;
     }
 
     /**
      * Adds a new user.
      *
-     * @param signUpDto The SignUpDto containing information for creating a new user.
+     * @param employeeAddDto The SignUpDto containing information for creating a new user.
      * @throws RuntimeException if the username already exists.
      */
-    public void addUser(SignUpDto signUpDto) {
-        if (userRepository.existsByUsername(signUpDto.username())) {
+    public void addUser(EmployeeAddDto employeeAddDto) {
+        if (userRepository.existsByUsername(employeeAddDto.username())) {
             throw new RuntimeException("Login is already taken");
         }
-        User user = signUpDtoMapper.apply(signUpDto);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user = employeeAddDtoMapper.apply(employeeAddDto);
         userRepository.save(user);
     }
 
     /**
      * Edits an existing user.
      *
-     * @param userEditDto The UserEditDto containing information for editing an existing user.
+     * @param employeeEditDto The UserEditDto containing information for editing an existing user.
      */
-    public void editUser(UserEditDto userEditDto) {
-        User user = userEditDtoMapper.apply(userEditDto);
+    public void editUser(EmployeeEditDto employeeEditDto) {
+        User user = employeeEditDtoMapper.apply(employeeEditDto);
         userRepository.save(user);
     }
 }
