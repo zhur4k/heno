@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "payment_date")
+@Table(name = "payment_dates")
 public class PaymentDate {
     /**
      * Field "ID (Payment date ID in the database)"

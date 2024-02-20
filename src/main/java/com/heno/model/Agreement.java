@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Data
 @AllArgsConstructor
-@Table(name = "sale_agreements")
+@Table(name = "agreements")
 public class Agreement {
 
     /**
@@ -82,6 +82,7 @@ public class Agreement {
     @ManyToOne
     @JoinColumn(name = "shipment_id")
     private Shipment shipment;
+
 
     public Agreement() {
 

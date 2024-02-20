@@ -11,7 +11,7 @@ import java.time.LocalDate;
  */
 @Entity
 @Data
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
 
     /**
@@ -54,6 +54,4 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private Provider provider;
-
-
 }

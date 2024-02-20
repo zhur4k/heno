@@ -8,7 +8,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "buyer")
+@Table(name = "buyers")
 public class Buyer {
 
     /**

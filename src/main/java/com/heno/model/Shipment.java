@@ -8,7 +8,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "shipment")
+@Table(name = "shipments")
 public class Shipment {
 
     /**

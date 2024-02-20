@@ -13,7 +13,7 @@ import java.time.LocalDate;
  */
 @Entity
 @Data
-@Table(name = "agreement_currency")
+@Table(name = "agreement_currencies")
 public class AgreementCurrency {
     /**
      * Field "ID (Currency ID in the database)"

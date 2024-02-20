@@ -8,7 +8,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "sale_type")
+@Table(name = "sale_types")
 public class SaleType {
 
     /**

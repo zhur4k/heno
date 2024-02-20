@@ -10,7 +10,7 @@ public enum Role implements GrantedAuthority {
     SUPERVISOR,
     DEPUTYDIRECTORFORLOGISTICS,
     SALESMAN,
-    LOGISTISIAN,
+    LOGISTICAL,
     ACCOUNTANT;
 
     @Override
