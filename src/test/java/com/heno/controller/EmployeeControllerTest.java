@@ -8,10 +8,7 @@ import com.heno.repository.UserRepository;
 import com.heno.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -19,9 +16,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for the {@link EmployeeController} class.
@@ -41,6 +38,7 @@ public class EmployeeControllerTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
     }
+
     /**
      * Test for the {@link EmployeeController#allEmployees()} method.
      * Verifies that the endpoint returns the expected string.
@@ -137,4 +135,38 @@ public class EmployeeControllerTest {
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         verify(userService).editUser(Mockito.any(EmployeeEditDto.class));
     }
+
+    /**
+     * Test for the success scenario of retrieving all employee roles.
+     */
+    @Test
+    void testGetAllEmployeeRoles_Success() {
+        // Replace with your expected roles
+        Role[] expectedRoles = Role.values();
+        // Test the endpoint
+        ResponseEntity<?> response = employeeController.getAllEmployeeRoles();
+
+        // Assertions
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertArrayEquals(expectedRoles, (Role[]) response.getBody());
+    }
+
+    /**
+     * Test for the scenario where an exception occurs while retrieving employee roles.
+     */
+    @Test
+    void testGetAllEmployeeRoles_Exception() {
+        // Mock the Role class and its static method values()
+        try (MockedStatic<Role> roleMock = mockStatic(Role.class)) {
+            roleMock.when(Role::values).thenThrow(new RuntimeException("Some error message"));
+
+            // Test the endpoint
+            ResponseEntity<?> response = employeeController.getAllEmployeeRoles();
+
+            // Assertions
+            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+            assertEquals("Some error message", response.getBody());
+        }
+    }
+
 }

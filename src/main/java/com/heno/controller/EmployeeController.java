@@ -2,6 +2,7 @@ package com.heno.controller;
 
 import com.heno.dto.EmployeeAddDto;
 import com.heno.dto.EmployeeEditDto;
+import com.heno.model.Role;
 import com.heno.repository.UserRepository;
 import com.heno.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -84,6 +85,19 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+    /**
+     * Endpoint to retrieve all roles.
+     *
+     * @return ResponseEntity with the list of Roles if successful, INTERNAL_SERVER_ERROR if an exception occurs.
+     */
+    @GetMapping("/getAllRoles")
+    public ResponseEntity<?> getAllEmployeeRoles() {
+        try {
+            return ResponseEntity.ok(Role.values());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }
