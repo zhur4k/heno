@@ -42,6 +42,10 @@ public class Agreement {
      */
     private LocalDate dateOfSupplies;
     /**
+     * Field "Type of agreement"
+     */
+    private String typeOfAgreement;
+    /**
      * Field "The employee who made the sale"
      */
     @ManyToOne
