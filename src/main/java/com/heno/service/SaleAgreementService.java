@@ -1,7 +1,9 @@
 package com.heno.service;
 
+import com.heno.dto.AgreementToShowInListDto;
 import com.heno.dto.SaleAgreementAddDto;
 import com.heno.dto.SaleAgreementEditDto;
+import com.heno.dto.mapper.AgreementToShowInListDtoMapper;
 import com.heno.dto.mapper.SaleAgreementAddDtoMapper;
 import com.heno.dto.mapper.SaleAgreementEditDtoMapper;
 import com.heno.model.Agreement;
@@ -10,6 +12,7 @@ import com.heno.repository.AgreementRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service class for managing sale agreements.
@@ -20,32 +23,38 @@ public class SaleAgreementService {
     private final AgreementRepository agreementRepository;
     private final SaleAgreementAddDtoMapper saleAgreementAddDtoMapper;
     private final SaleAgreementEditDtoMapper saleAgreementEditDtoMapper;
+    private final AgreementToShowInListDtoMapper agreementToShowInListDtoMapper;
 
     /**
      * Constructs a SaleAgreementService with the specified dependencies.
      *
-     * @param agreementRepository      The repository for managing agreements.
-     * @param saleAgreementAddDtoMapper Mapper for converting SaleAgreementAddDto to Agreement.
-     * @param saleAgreementEditDtoMapper Mapper for converting SaleAgreementEditDto to Agreement.
+     * @param agreementRepository            The repository for managing agreements.
+     * @param saleAgreementAddDtoMapper      Mapper for converting SaleAgreementAddDto to Agreement.
+     * @param saleAgreementEditDtoMapper     Mapper for converting SaleAgreementEditDto to Agreement.
+     * @param agreementToShowInListDtoMapper Mapper for converting Agreement to AgreementToShowInListDto.
      */
     public SaleAgreementService(
             AgreementRepository agreementRepository,
             SaleAgreementAddDtoMapper saleAgreementAddDtoMapper,
-            SaleAgreementEditDtoMapper saleAgreementEditDtoMapper
-    ) {
+            SaleAgreementEditDtoMapper saleAgreementEditDtoMapper,
+            AgreementToShowInListDtoMapper agreementToShowInListDtoMapper) {
         this.agreementRepository = agreementRepository;
         this.saleAgreementAddDtoMapper = saleAgreementAddDtoMapper;
         this.saleAgreementEditDtoMapper = saleAgreementEditDtoMapper;
+        this.agreementToShowInListDtoMapper = agreementToShowInListDtoMapper;
     }
 
     /**
-     * Retrieves all sale agreements associated with the specified employee.
+     * Retrieves all AgreementToShowInListDto associated with the specified employee.
      *
      * @param employee The employee for whom to retrieve sale agreements.
-     * @return A list of sale agreements associated with the specified employee.
+     * @return A list of AgreementToShowInListDto associated with the specified employee.
      */
-    public List<Agreement> findAll(User employee) {
-        return agreementRepository.findAllByEmployeeAndTypeOfAgreement(employee, "sale");
+    public List<AgreementToShowInListDto> findAll(User employee) {
+        return agreementRepository.findAllByEmployeeAndTypeOfAgreement(employee, "sale")
+                .stream()
+                .map(agreementToShowInListDtoMapper)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -71,13 +80,13 @@ public class SaleAgreementService {
         agreement.setEmployee(employee);
         agreementRepository.save(agreement);
     }
-    /**
-     * Retrieves all sale agreements.
-     *
-     * @return A list of sale agreements.
-     */
-    public List<Agreement> findAll() {
-        return agreementRepository.findAllByTypeOfAgreement("sale");
-    }
+//    /**
+//     * Retrieves all sale agreements.
+//     *
+//     * @return A list of sale agreements.
+//     */
+//    public List<Agreement> findAll() {
+//        return agreementRepository.findAllByTypeOfAgreement("sale");
+//    }
 }
 

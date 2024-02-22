@@ -1,7 +1,9 @@
 package com.heno.service;
 
+import com.heno.dto.AgreementToShowInListDto;
 import com.heno.dto.SaleAgreementAddDto;
 import com.heno.dto.SaleAgreementEditDto;
+import com.heno.dto.mapper.AgreementToShowInListDtoMapper;
 import com.heno.dto.mapper.SaleAgreementAddDtoMapper;
 import com.heno.dto.mapper.SaleAgreementEditDtoMapper;
 import com.heno.model.*;
@@ -14,9 +16,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,6 +37,8 @@ class SaleAgreementServiceTest {
 
     @Mock
     private SaleAgreementEditDtoMapper saleAgreementEditDtoMapper;
+    @Mock
+    private AgreementToShowInListDtoMapper agreementToShowInListDtoMapper;
 
     @InjectMocks
     private SaleAgreementService saleAgreementService;
@@ -91,10 +95,13 @@ class SaleAgreementServiceTest {
                 .thenReturn(mockAgreements);
 
         // When
-        List<Agreement> result = saleAgreementService.findAll(mockEmployee);
+        List<AgreementToShowInListDto> result = saleAgreementService.findAll(mockEmployee);
 
         // Then
-        assertEquals(mockAgreements, result);
+        assertEquals(mockAgreements
+                .stream()
+                        .map(agreementToShowInListDtoMapper).collect(Collectors.toList()),
+                result);
         verify(agreementRepository, times(1)).findAllByEmployeeAndTypeOfAgreement(mockEmployee, "sale");
     }
 
@@ -132,35 +139,35 @@ class SaleAgreementServiceTest {
         verify(mockAgreement, times(1)).setEmployee(mockEmployee);
         verify(agreementRepository, times(1)).save(mockAgreement);
     }
-    /**
-     * Test for {@link SaleAgreementService#findAll()}.
-     * It verifies that the service correctly calls the repository's findAllByTypeOfAgreement method
-     * with the expected argument and returns the result.
-     */
-    @Test
-    void testFindAll() {
-        // Arrange
-        User dummyUser = new User(); // create a dummy user
-        String expectedTypeOfAgreement = "sale";
-
-        // create dummy agreements
-        List<Agreement> expectedAgreements = Arrays.asList(
-                new Agreement(/* provide necessary parameters */),
-                new Agreement(/* provide necessary parameters */)
-        );
-
-        // Mock the repository response
-        when(agreementRepository.findAllByTypeOfAgreement(expectedTypeOfAgreement))
-                .thenReturn(expectedAgreements);
-
-        // Act
-        List<Agreement> result = saleAgreementService.findAll();
-
-        // Assert
-        // Verify that the repository method was called with the expected argument
-        verify(agreementRepository, times(1)).findAllByTypeOfAgreement(expectedTypeOfAgreement);
-
-        // Verify that the result matches the expected agreements
-        assertEquals(expectedAgreements, result);
-    }
+//    /**
+//     * Test for {@link SaleAgreementService#findAll()}.
+//     * It verifies that the service correctly calls the repository's findAllByTypeOfAgreement method
+//     * with the expected argument and returns the result.
+//     */
+//    @Test
+//    void testFindAll() {
+//        // Arrange
+//        User dummyUser = new User(); // create a dummy user
+//        String expectedTypeOfAgreement = "sale";
+//
+//        // create dummy agreements
+//        List<Agreement> expectedAgreements = Arrays.asList(
+//                new Agreement(/* provide necessary parameters */),
+//                new Agreement(/* provide necessary parameters */)
+//        );
+//
+//        // Mock the repository response
+//        when(agreementRepository.findAllByTypeOfAgreement(expectedTypeOfAgreement))
+//                .thenReturn(expectedAgreements);
+//
+//        // Act
+//        List<Agreement> result = saleAgreementService.findAll();
+//
+//        // Assert
+//        // Verify that the repository method was called with the expected argument
+//        verify(agreementRepository, times(1)).findAllByTypeOfAgreement(expectedTypeOfAgreement);
+//
+//        // Verify that the result matches the expected agreements
+//        assertEquals(expectedAgreements, result);
+//    }
 }
