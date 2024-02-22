@@ -35,7 +35,7 @@ public class EmployeeController {
     /**
      * Endpoint to get all employees.
      *
-     * @return A string indicating all employees.
+     * @return v view all employees.
      */
     @GetMapping("/")
     String allEmployees() {

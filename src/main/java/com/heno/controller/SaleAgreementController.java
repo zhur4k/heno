@@ -28,27 +28,32 @@ public class SaleAgreementController {
     }
 
     /**
-     * Endpoint for retrieving all sale agreements.
+     * Endpoint to get all sale agreements page.
      *
-     * @return A string indicating the endpoint for all sale agreements.
+     * @return HTML page to view list of all sale agreements.
      */
     @GetMapping
     String allSaleAgreements() {
-        return "saleAgreement";
+        return "saleAgreements";
     }
-//    /**
-//     * Endpoint for retrieving all sale agreements.
-//     *
-//     * @return ResponseEntity containing the list of sale agreements or an error message.
-//     */
-//    @GetMapping("/getAll")
-//    public ResponseEntity<?> getAllSaleAgreements() {
-//        try {
-//            return ResponseEntity.ok(saleAgreementService.findAll());
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-//        }
-//    }
+    /**
+     * Endpoint to get page for add sale agreement.
+     *
+     * @return HTML page to add sale agreement.
+     */
+    @GetMapping
+    String addSaleAgreement() {
+        return "addSaleAgreement";
+    }
+    /**
+     * Endpoint to get page for edit sale agreement.
+     *
+     * @return HTML page to edit sale agreement.
+     */
+    @GetMapping
+    String editSaleAgreement() {
+        return "editSaleAgreement";
+    }
     /**
      * Endpoint for retrieving all sale agreements associated with the authenticated user.
      *
@@ -92,7 +97,7 @@ public class SaleAgreementController {
      * @return ResponseEntity indicating success or failure of the operation.
      */
     @PostMapping("/edit")
-    public ResponseEntity<?> editAgreement(
+    public ResponseEntity<?> editSaleAgreement(
             @AuthenticationPrincipal User employee,
             @RequestBody SaleAgreementEditDto saleAgreementEditDto
     ) {

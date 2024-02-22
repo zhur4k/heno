@@ -138,7 +138,7 @@ class SaleAgreementControllerTest {
     @Test
     void testEditAgreement() {
         // When
-        ResponseEntity<?> response = saleAgreementController.editAgreement(mockUser, mockSaleAgreementEditDto);
+        ResponseEntity<?> response = saleAgreementController.editSaleAgreement(mockUser, mockSaleAgreementEditDto);
 
         // Then
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
