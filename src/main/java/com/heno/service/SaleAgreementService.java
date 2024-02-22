@@ -71,5 +71,13 @@ public class SaleAgreementService {
         agreement.setEmployee(employee);
         agreementRepository.save(agreement);
     }
+    /**
+     * Retrieves all sale agreements.
+     *
+     * @return A list of sale agreements.
+     */
+    public List<Agreement> findAll() {
+        return agreementRepository.findAllByTypeOfAgreement("sale");
+    }
 }
 

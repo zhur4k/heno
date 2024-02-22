@@ -36,7 +36,19 @@ public class SaleAgreementController {
     String allSaleAgreements() {
         return "saleAgreement";
     }
-
+    /**
+     * Endpoint for retrieving all sale agreements.
+     *
+     * @return ResponseEntity containing the list of sale agreements or an error message.
+     */
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllSaleAgreements() {
+        try {
+            return ResponseEntity.ok(saleAgreementService.findAll());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
     /**
      * Endpoint for retrieving all sale agreements associated with the authenticated user.
      *

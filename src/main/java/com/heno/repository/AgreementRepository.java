@@ -13,5 +13,20 @@ import java.util.List;
 @Repository
 public interface AgreementRepository extends JpaRepository<Agreement,Long> {
 
-    List<Agreement> findAllByEmployeeAndTypeOfAgreement(User employee,String typeOfAgreement);
+    /**
+     * Retrieves a list of agreements based on the specified employee and type of agreement.
+     *
+     * @param employee         The user associated with the agreements.
+     * @param typeOfAgreement  The type of agreement to filter by.
+     * @return                  A list of agreements that match the criteria.
+     */
+    List<Agreement> findAllByEmployeeAndTypeOfAgreement(User employee, String typeOfAgreement);
+
+    /**
+     * Retrieves a list of agreements based on the specified type of agreement.
+     *
+     * @param typeOfAgreement  The type of agreement to filter by.
+     * @return                  A list of agreements that match the specified type.
+     */
+    List<Agreement> findAllByTypeOfAgreement(String typeOfAgreement);
 }

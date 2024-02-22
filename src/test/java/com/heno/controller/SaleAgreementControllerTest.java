@@ -108,6 +108,23 @@ class SaleAgreementControllerTest {
         assertEquals(mockAgreements, response.getBody());
         verify(saleAgreementService, times(1)).findAll(mockUser);
     }
+    /**
+     * Test case for the getAllSaleAgreements method in the SaleAgreementController class.
+     */
+    @Test
+    void testGetAllSaleAgreements() {
+        // Given
+        List<Agreement> mockAgreements = Collections.singletonList(new Agreement(/* initialize agreement fields */));
+        when(saleAgreementService.findAll()).thenReturn(mockAgreements);
+
+        // When
+        ResponseEntity<?> response = saleAgreementController.getAllSaleAgreements();
+
+        // Then
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(mockAgreements, response.getBody());
+        verify(saleAgreementService, times(1)).findAll();
+    }
 
     /**
      * Test case for the addSaleAgreement method in the SaleAgreementController class.

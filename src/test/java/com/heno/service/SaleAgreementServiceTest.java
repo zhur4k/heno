@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -83,7 +84,7 @@ class SaleAgreementServiceTest {
      * Test case for the findAll method of SaleAgreementService.
      */
     @Test
-    void testFindAll() {
+    void testFindAllByEmployee() {
         // Given
         List<Agreement> mockAgreements = Collections.singletonList(new Agreement(/* initialize agreement fields */));
         when(agreementRepository.findAllByEmployeeAndTypeOfAgreement(any(User.class), any(String.class)))
@@ -130,5 +131,36 @@ class SaleAgreementServiceTest {
         verify(saleAgreementEditDtoMapper, times(1)).apply(mockSaleAgreementEditDto);
         verify(mockAgreement, times(1)).setEmployee(mockEmployee);
         verify(agreementRepository, times(1)).save(mockAgreement);
+    }
+    /**
+     * Test for {@link SaleAgreementService#findAll()}.
+     * It verifies that the service correctly calls the repository's findAllByTypeOfAgreement method
+     * with the expected argument and returns the result.
+     */
+    @Test
+    void testFindAll() {
+        // Arrange
+        User dummyUser = new User(); // create a dummy user
+        String expectedTypeOfAgreement = "sale";
+
+        // create dummy agreements
+        List<Agreement> expectedAgreements = Arrays.asList(
+                new Agreement(/* provide necessary parameters */),
+                new Agreement(/* provide necessary parameters */)
+        );
+
+        // Mock the repository response
+        when(agreementRepository.findAllByTypeOfAgreement(expectedTypeOfAgreement))
+                .thenReturn(expectedAgreements);
+
+        // Act
+        List<Agreement> result = saleAgreementService.findAll();
+
+        // Assert
+        // Verify that the repository method was called with the expected argument
+        verify(agreementRepository, times(1)).findAllByTypeOfAgreement(expectedTypeOfAgreement);
+
+        // Verify that the result matches the expected agreements
+        assertEquals(expectedAgreements, result);
     }
 }
