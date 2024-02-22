@@ -6,9 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
  * Enum describing user roles.
  */
 public enum Role implements GrantedAuthority {
-
     SUPERVISOR,
-    DEPUTYDIRECTORFORLOGISTICS,
+    LOGISTICALSUPERVISOR,
     SALESMAN,
     LOGISTICAL,
     ACCOUNTANT;

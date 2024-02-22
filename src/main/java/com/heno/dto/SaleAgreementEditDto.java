@@ -1,9 +1,6 @@
 package com.heno.dto;
 
 import com.heno.model.*;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -42,7 +39,7 @@ public record SaleAgreementEditDto(
         /**
          * Field "Products in agreement"
          */
-        List<Product> products,
+        List<AgreementProduct> products,
         /**
          * Field "Currency of agreement"
          */

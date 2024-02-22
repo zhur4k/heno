@@ -26,32 +26,9 @@ public class Product {
      */
     private String name;
     /**
-     * Field "Price"
-     */
-    private BigDecimal price;
-
-    /**
-     * Field "Quantity"
-     */
-    private Integer quantity;
-    /**
-     * Field "Additional equipment"
-     */
-    private String additionalEquipment;
-    /**
-     * Field "Delivery time"
-     */
-    private LocalDate deliveryTime;
-    /**
      * Field "Unit"
      */
     @ManyToOne
     @JoinColumn(name = "unit_id")
     private Unit unit;
-    /**
-     * Field "Provider the products"
-     */
-    @ManyToOne
-    @JoinColumn(name = "provider_id")
-    private Provider provider;
 }

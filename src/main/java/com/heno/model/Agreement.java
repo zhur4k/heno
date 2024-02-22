@@ -67,7 +67,7 @@ public class Agreement {
      * Field "Products in agreement"
      */
     @OneToMany
-    private List<Product> products = new ArrayList<>();
+    private List<AgreementProduct> products = new ArrayList<>();
     /**
      * Field "Currency of agreement"
      */

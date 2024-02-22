@@ -35,7 +35,7 @@ public record SaleAgreementAddDto(
         /**
          * Field "Products in agreement"
          */
-        List<Product> products,
+        List<AgreementProduct> products,
         /**
          * Field "Currency of agreement"
          */
