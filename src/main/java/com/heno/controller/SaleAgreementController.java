@@ -33,7 +33,7 @@ public class SaleAgreementController {
      * @return HTML page to view list of all sale agreements.
      */
     @GetMapping
-    String allSaleAgreements() {
+    String allSaleAgreementsPage() {
         return "saleAgreements";
     }
     /**
@@ -42,7 +42,7 @@ public class SaleAgreementController {
      * @return HTML page to add sale agreement.
      */
     @GetMapping
-    String addSaleAgreement() {
+    String addSaleAgreementPage() {
         return "addSaleAgreement";
     }
     /**
@@ -51,7 +51,7 @@ public class SaleAgreementController {
      * @return HTML page to edit sale agreement.
      */
     @GetMapping
-    String editSaleAgreement() {
+    String editSaleAgreementPage() {
         return "editSaleAgreement";
     }
     /**

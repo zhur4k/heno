@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-02-22T18:10:59.123Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="gvh5-wBCO0Uexbq-OMRB" version="23.1.5" type="device">
+<mxfile host="app.diagrams.net" modified="2024-02-22T20:14:36.352Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="w2JpsuNSB8MQ6p3Ez2fe" version="23.1.5" type="device">
   <diagram name="Страница — 1" id="xJvbbVoPIL04P0teMrht">
     <mxGraphModel dx="2327" dy="1926" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#000000" math="0" shadow="0">
       <root>
@@ -112,7 +112,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="fAuQlepYap5Bk5Slu7gm-40" value="Edit supply agreement" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FAFAFA;fontColor=#FAFAFA;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="292" y="281" width="186" height="63" as="geometry" />
+          <mxGeometry x="223" y="279" width="186" height="63" as="geometry" />
         </mxCell>
         <mxCell id="fAuQlepYap5Bk5Slu7gm-44" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FFFFFF;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;" edge="1" parent="1" source="fAuQlepYap5Bk5Slu7gm-41" target="fAuQlepYap5Bk5Slu7gm-5">
           <mxGeometry relative="1" as="geometry" />
@@ -121,7 +121,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="fAuQlepYap5Bk5Slu7gm-41" value="Create supply&amp;nbsp;agreement" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FAFAFA;fontColor=#FAFAFA;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="292" y="200" width="186" height="60" as="geometry" />
+          <mxGeometry x="356" y="194" width="186" height="60" as="geometry" />
         </mxCell>
         <mxCell id="fAuQlepYap5Bk5Slu7gm-48" value="Create provider" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FAFAFA;fontColor=#FAFAFA;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="644.5" y="289" width="186" height="64" as="geometry" />
@@ -150,14 +150,14 @@
         <mxCell id="fAuQlepYap5Bk5Slu7gm-73" value="Get employee&lt;br&gt;&amp;nbsp;sale agreements" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FAFAFA;fontColor=#FAFAFA;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="47" y="78" width="186" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="fAuQlepYap5Bk5Slu7gm-77" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FFFFFF;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;" edge="1" parent="1" source="fAuQlepYap5Bk5Slu7gm-74" target="fAuQlepYap5Bk5Slu7gm-41">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
         <mxCell id="fAuQlepYap5Bk5Slu7gm-78" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FFFFFF;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;" edge="1" parent="1" source="fAuQlepYap5Bk5Slu7gm-74" target="fAuQlepYap5Bk5Slu7gm-40">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="fAuQlepYap5Bk5Slu7gm-109" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#FFFFFF;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;endArrow=classic;" edge="1" parent="1" source="fAuQlepYap5Bk5Slu7gm-74" target="fAuQlepYap5Bk5Slu7gm-103">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="fAuQlepYap5Bk5Slu7gm-74" value="Get employee supply&amp;nbsp;agreements" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FAFAFA;fontColor=#FAFAFA;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="47" y="235" width="186" height="60" as="geometry" />
+          <mxGeometry x="-17" y="266" width="186" height="69" as="geometry" />
         </mxCell>
         <mxCell id="fAuQlepYap5Bk5Slu7gm-85" value="Get all agreements" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FAFAFA;fontColor=#FAFAFA;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="47" y="-81" width="186" height="60" as="geometry" />
@@ -188,6 +188,12 @@
         </mxCell>
         <mxCell id="fAuQlepYap5Bk5Slu7gm-98" value="Get all roles" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FAFAFA;fontColor=#FAFAFA;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="564" y="-250" width="186" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fAuQlepYap5Bk5Slu7gm-107" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FFFFFF;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;endArrow=classic;" edge="1" parent="1" source="fAuQlepYap5Bk5Slu7gm-103" target="fAuQlepYap5Bk5Slu7gm-41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fAuQlepYap5Bk5Slu7gm-103" value="Get all active sale agreement" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FAFAFA;fontColor=#FAFAFA;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="70" y="181" width="186" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

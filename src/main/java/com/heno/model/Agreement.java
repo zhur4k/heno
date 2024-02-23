@@ -46,6 +46,10 @@ public class Agreement {
      */
     private String typeOfAgreement;
     /**
+     * Field "State of agreement(true - active)"
+     */
+    private Boolean state;
+    /**
      * Field "The employee who made the sale"
      */
     @ManyToOne

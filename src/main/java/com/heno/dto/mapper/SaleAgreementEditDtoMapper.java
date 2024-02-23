@@ -27,7 +27,6 @@ public class SaleAgreementEditDtoMapper implements Function<SaleAgreementEditDto
         agreement.setDateOfAgreement(saleAgreementEditDto.dateOfAgreement());
         agreement.setDateOfRegistrationAgreement(saleAgreementEditDto.dateOfRegistrationAgreement());
         agreement.setDateOfSupplies(saleAgreementEditDto.dateOfSupplies());
-        agreement.setTypeOfAgreement("sale");
         agreement.setSaleType(saleAgreementEditDto.saleType());
         agreement.setBuyer(saleAgreementEditDto.buyer());
         agreement.setProducts(saleAgreementEditDto.products());

@@ -78,17 +78,38 @@ class SaleAgreementControllerTest {
     }
 
     /**
+     * Test case for the editSaleAgreements method in the SaleAgreementController class.
+     */
+    @Test
+    void testEditSaleAgreementPage() {
+        // When
+        String result = saleAgreementController.editSaleAgreementPage();
+
+        // Then
+        assertEquals("editSaleAgreement", result);
+    }
+    /**
+     * Test case for the addSaleAgreements method in the SaleAgreementController class.
+     */
+    @Test
+    void testAddSaleAgreementPage() {
+        // When
+        String result = saleAgreementController.addSaleAgreementPage();
+
+        // Then
+        assertEquals("addSaleAgreement", result);
+    }
+    /**
      * Test case for the allSaleAgreements method in the SaleAgreementController class.
      */
     @Test
     void testAllSaleAgreements() {
         // When
-        String result = saleAgreementController.allSaleAgreements();
+        String result = saleAgreementController.allSaleAgreementsPage();
 
         // Then
-        assertEquals("saleAgreement", result);
+        assertEquals("saleAgreements", result);
     }
-
     /**
      * Test case for the getAllSaleAgreementsForUser method in the SaleAgreementController class.
      */
@@ -136,7 +157,7 @@ class SaleAgreementControllerTest {
      * Test case for the editAgreement method in the SaleAgreementController class.
      */
     @Test
-    void testEditAgreement() {
+    void testEditSaleAgreement() {
         // When
         ResponseEntity<?> response = saleAgreementController.editSaleAgreement(mockUser, mockSaleAgreementEditDto);
 
