@@ -55,4 +55,9 @@ public class AgreementCurrency {
      */
     @JsonProperty("Cur_OfficialRate")
     private BigDecimal Cur_OfficialRate;
+
+    /**
+     * Field "View or not (true - view)"
+     */
+    private Boolean view;
 }

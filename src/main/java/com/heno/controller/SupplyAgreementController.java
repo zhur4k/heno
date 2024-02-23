@@ -41,7 +41,7 @@ public class SupplyAgreementController {
      *
      * @return HTML page to add supply agreement.
      */
-    @GetMapping
+    @GetMapping("/add")
     String addSupplyAgreementPage() {
         return "addSupplyAgreement";
     }
@@ -50,7 +50,7 @@ public class SupplyAgreementController {
      *
      * @return HTML page to edit supply agreement.
      */
-    @GetMapping
+    @GetMapping("/edit")
     String editSupplyAgreementPage() {
         return "editSupplyAgreement";
     }

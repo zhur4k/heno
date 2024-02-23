@@ -41,7 +41,7 @@ public class SaleAgreementController {
      *
      * @return HTML page to add sale agreement.
      */
-    @GetMapping
+    @GetMapping("/add")
     String addSaleAgreementPage() {
         return "addSaleAgreement";
     }
@@ -50,7 +50,7 @@ public class SaleAgreementController {
      *
      * @return HTML page to edit sale agreement.
      */
-    @GetMapping
+    @GetMapping("/edit")
     String editSaleAgreementPage() {
         return "editSaleAgreement";
     }
