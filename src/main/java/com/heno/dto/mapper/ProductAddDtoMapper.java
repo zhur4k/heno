@@ -22,6 +22,6 @@ public class ProductAddDtoMapper implements Function<ProductAddDto, Product> {
         Product product = new Product();
         product.setName(productAddDto.name());
         product.setUnit(productAddDto.unit());
-        return null;
+        return product;
     }
 }

@@ -23,6 +23,6 @@ public class ProductEditDtoMapper implements Function<ProductEditDto, Product> {
         product.setId(productEditDto.id());
         product.setName(productEditDto.name());
         product.setUnit(productEditDto.unit());
-        return null;
+        return product;
     }
 }
