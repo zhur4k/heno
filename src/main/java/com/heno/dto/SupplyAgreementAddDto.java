@@ -28,10 +28,10 @@ public record SupplyAgreementAddDto(
          */
         SaleType saleType,
         /**
-         * Field "Info about buyer"
+         * Field "Info about partner"
          */
 
-        Buyer buyer,
+        Partner partner,
         /**
          * Field "Products in agreement"
          */

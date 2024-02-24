@@ -39,12 +39,6 @@ public class AgreementProduct {
      */
     private LocalDate deliveryTime;
     /**
-     * Field "Provider the products"
-     */
-    @ManyToOne
-    @JoinColumn(name = "provider_id")
-    private Provider provider;
-    /**
      * Field "Product"
      */
     @ManyToOne

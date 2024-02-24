@@ -19,7 +19,7 @@ public class ProductController {
     /**
      * Constructs a ProductsController with the specified ProductsService dependency.
      *
-     * @param productService The service for managing sale agreements.
+     * @param productService The service for managing products.
      */
     public ProductController(ProductService productService) {
         this.productService = productService;

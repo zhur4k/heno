@@ -31,7 +31,7 @@ public record SaleAgreementAddDto(
          * Field "Info about buyer"
          */
 
-        Buyer buyer,
+        Partner partner,
         /**
          * Field "Products in agreement"
          */

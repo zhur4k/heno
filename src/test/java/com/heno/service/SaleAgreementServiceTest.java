@@ -59,7 +59,7 @@ class SaleAgreementServiceTest {
                 LocalDate.now(),  // Date of registration of agreement
                 LocalDate.now(),  // Date of supplies
                 null,  // Type of the sale (replace with actual SaleType)
-                new Buyer(/* initialize Buyer fields */),
+                new Partner(/* initialize Buyer fields */),
                 List.of(new AgreementProduct(/* initialize Product fields */)),
                 null,  // Currency of agreement (replace with actual AgreementCurrency)
                 List.of(new PaymentDate(/* initialize PaymentDate fields */)),
@@ -75,7 +75,7 @@ class SaleAgreementServiceTest {
                 LocalDate.now(),  // Date of registration of agreement
                 LocalDate.now(),  // Date of supplies
                 null,  // Type of the sale (replace with actual SaleType)
-                new Buyer(/* initialize Buyer fields */),
+                new Partner(/* initialize Buyer fields */),
                 List.of(new AgreementProduct(/* initialize Product fields */)),
                 null,  // Currency of agreement (replace with actual AgreementCurrency)
                 List.of(new PaymentDate(/* initialize PaymentDate fields */)),

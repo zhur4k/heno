@@ -28,7 +28,7 @@ public class SupplyAgreementAddDtoMapper implements Function<SupplyAgreementAddD
         agreement.setTypeOfAgreement("supply");
         agreement.setState(true);
         agreement.setSaleType(supplyAgreementAddDto.saleType());
-        agreement.setBuyer(supplyAgreementAddDto.buyer());
+        agreement.setPartner(supplyAgreementAddDto.partner());
         agreement.setProducts(supplyAgreementAddDto.products());
         agreement.setCurrency(supplyAgreementAddDto.currency());
         agreement.setPaymentDate(supplyAgreementAddDto.paymentDate());

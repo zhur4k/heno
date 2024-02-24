@@ -26,7 +26,7 @@ public class AgreementToShowInListDtoMapper implements Function<Agreement,Agreem
                 agreement.getDateOfRegistrationAgreement(),
                 agreement.getDateOfSupplies(),
                 agreement.getSaleType(),
-                agreement.getBuyer(),
+                agreement.getPartner(),
                 agreement.getCurrency(),
                 agreement.getPaymentDate(),
                 agreement.getShipment(),

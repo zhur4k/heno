@@ -62,11 +62,11 @@ public class Agreement {
     @JoinColumn(name = "sale_type_id")
     private SaleType saleType;
     /**
-     * Field "Info about buyer"
+     * Field "Info about partner"
      */
     @ManyToOne
-    @JoinColumn(name = "buyer_id")
-    private Buyer buyer;
+    @JoinColumn(name = "partner_id")
+    private Partner partner;
     /**
      * Field "Products in agreement"
      */

@@ -19,7 +19,7 @@ public class UnitController {
     /**
      * Constructs a unitsController with the specified unitsService dependency.
      *
-     * @param unitService The service for managing sale agreements.
+     * @param unitService The service for managing units.
      */
     public UnitController(UnitService unitService) {
         this.unitService = unitService;

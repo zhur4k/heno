@@ -4,15 +4,15 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 /**
- * Entity describing the provider the products.
+ * Entity describing the Partner.
  */
 @Entity
 @Data
-@Table(name = "providers")
-public class Provider {
+@Table(name = "partners")
+public class Partner {
 
     /**
-     * Field "Id(Provider id in date base)"
+     * Field "Id(Partner id in date base)"
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
