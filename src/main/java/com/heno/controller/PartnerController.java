@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Controller class for managing Partners.
+ * Controller class for managing partners.
  */
 @RestController
 @RequestMapping("/partners")
