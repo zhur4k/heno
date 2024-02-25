@@ -2,30 +2,41 @@ package com.heno.service;
 
 import com.heno.model.AgreementCurrency;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CurrencyConversionServiceIntegrationTest {
 
-    private final TestRestTemplate restTemplate = new TestRestTemplate();
+    @Autowired
+    private CurrencyConversionService currencyConversionService;
 
     @Test
     void testRealRequestToApi() {
         // Replace with your actual currency code
-        String currencyCode = "431";
+        AgreementCurrency currency = new AgreementCurrency();
 
-        // Make a real request to the NB RB API
-        ResponseEntity<AgreementCurrency> responseEntity = restTemplate.getForEntity("https://api.nbrb.by/exrates/rates/"+currencyCode, AgreementCurrency.class);
+        currency.setCur_date(LocalDate.now());
+        currency.setCur_ID("431");
 
-        // Assert that the response is successful (HTTP 2xx status)
-        assertNotNull(responseEntity.getBody());
+        AgreementCurrency agreementCurrency = currencyConversionService.getExchangeCurrency(currency);
 
-        // Print the exchange rate for demonstration purposes
-        AgreementCurrency agreementCurrency = responseEntity.getBody();
+        assertNotNull(agreementCurrency);
+
         System.out.println(agreementCurrency);
+    }
+    @Test
+    void testRealRequestToApiGetAll() {
+
+        List<AgreementCurrency> currencies = currencyConversionService.getAllCurrencies();
+
+        assertNotNull(currencies);
+
+        System.out.println(currencies);
     }
 }

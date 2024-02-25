@@ -28,12 +28,53 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/employees/**","/agreements/sale/**").hasAnyAuthority("SUPERVISOR")
-                        .requestMatchers("/agreements/sale/**").hasAnyAuthority("LOGISTICALSUPERVISOR")
-                        .requestMatchers("/agreements/sale/**").hasAnyAuthority("SALESMAN")
-                        .requestMatchers("/").hasAnyAuthority("LOGISTICAL")
-                        .requestMatchers("/").hasAnyAuthority("ACCOUNTANT")
-                        .requestMatchers("/css/**","/images/**","/js/**").permitAll()
+                        .requestMatchers("/employees/**",
+                                "/agreements/sale/**",
+                                "/agreements/supply/**",
+                                "/currencies/**",
+                                "/partners/**",
+                                "/products/**",
+                                "/units/**"
+
+                        ).hasAnyAuthority("SUPERVISOR")
+
+                        .requestMatchers(
+                                "/agreements/sale/**",
+                                "/agreements/supply/**",
+                                "/currencies/**",
+                                "/partners/**",
+                                "/products/**",
+                                "/units/**"
+
+                        ).hasAnyAuthority("LOGISTICALSUPERVISOR")
+
+                        .requestMatchers(
+                                "/"
+                        ).hasAnyAuthority("ACCOUNTANT")
+
+                        .requestMatchers(
+                                "/agreements/sale/**",
+                                "/currencies/**",
+                                "/partners/**",
+                                "/products/**",
+                                "/units/**"
+                        ).hasAnyAuthority("SALESMAN")
+
+                        .requestMatchers(
+                                "/agreements/supply/**",
+                                "/currencies/**",
+                                "/partners/**",
+                                "/products/**",
+                                "/units/**"
+
+                        ).hasAnyAuthority("LOGISTICAL")
+
+                        .requestMatchers(
+                                "/css/**",
+                                "/images/**",
+                                "/js/**"
+                        ).permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

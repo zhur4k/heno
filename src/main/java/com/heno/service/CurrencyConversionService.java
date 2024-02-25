@@ -1,20 +1,27 @@
 package com.heno.service;
 import com.heno.model.AgreementCurrency;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Service
 public class CurrencyConversionService {
 
-    private static final String NB_RB_API_URL = "https://api.nbrb.by/exrates/rates/";
+    private static final String NB_RB_API_URL = "https://api.nbrb.by/exrates/";
 
     private final RestTemplate restTemplate;
+    // Создайте параметризованный тип для List<AgreementCurrency>
+    ParameterizedTypeReference<List<AgreementCurrency>> responseType = new ParameterizedTypeReference<List<AgreementCurrency>>() {
+    };
     @Autowired
     public CurrencyConversionService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -63,11 +70,35 @@ public class CurrencyConversionService {
 
         // Request to NB RB API for obtaining the currency exchange rate
         AgreementCurrency currency = restTemplate.getForObject(
-                NB_RB_API_URL+fromCurrency.getCur_ID(),
+                NB_RB_API_URL+"rates/"+fromCurrency.getCur_ID(),
                 AgreementCurrency.class);
         if (currency == null) {
             throw new RuntimeException("Failed to retrieve exchange rate from NB RB API.");
         }
         return currency;
+    }
+
+    /**
+     * Retrieves all currencies from the NB RB API.
+     *
+     * @return All currencies.
+     */
+    public List<AgreementCurrency> getAllCurrencies(){
+
+        // Request to NB RB API for obtaining the currency exchange rate
+        // Выполните запрос с использованием параметризованного типа
+        ResponseEntity<List<AgreementCurrency>> responseEntity = restTemplate.exchange(
+                NB_RB_API_URL + "currencies",
+                HttpMethod.GET,
+                null,
+                responseType
+        );
+
+        // Получите список в ответе
+        List<AgreementCurrency> currencies = responseEntity.getBody();
+        if (currencies == null) {
+            throw new RuntimeException("Failed to retrieve currencies from NB RB API.");
+        }
+        return currencies;
     }
 }

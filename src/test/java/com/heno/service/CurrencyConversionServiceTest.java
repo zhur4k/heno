@@ -120,7 +120,7 @@ public class CurrencyConversionServiceTest {
 
         // Mocking an API error response (null)
         Mockito.when(restTemplateMock.getForObject(
-                        "https://api.nbrb.by/exrates/rates/431",
+                        "https://api.nbrb.by/exrates/431",
                         AgreementCurrency.class))
                 .thenReturn(null);
 
