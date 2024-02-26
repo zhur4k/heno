@@ -82,7 +82,7 @@ public class EmployeeController {
     public ResponseEntity<?> editEmployee(EmployeeEditDto employeeEditDto) {
         try {
             userService.editUser(employeeEditDto);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

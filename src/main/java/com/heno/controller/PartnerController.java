@@ -80,7 +80,7 @@ public class PartnerController {
     ) {
         try {
             partnerService.editPartner(partnerEditDto);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

@@ -112,7 +112,28 @@ public class EmployeeControllerTest {
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         verify(userService).addUser(Mockito.any(EmployeeAddDto.class));
     }
+    /**
+     * Test for the {@link EmployeeController#addEmployee(EmployeeAddDto employeeAddDto)} method.
+     * Verifies that the endpoint returns an exception response after adding a new user.
+     */
+    @Test
+    void testAddEmployeeEndpoint_Exception() {
+        // Arrange (no additional setup needed)
+        doThrow(new RuntimeException("Some error message")).when(userService).addUser(any());
+        // Act
+        ResponseEntity<?> response = employeeController.addEmployee(
+                new EmployeeAddDto("test@email.com"
+                        , "John Doe"
+                        , "123456789"
+                        , "testUser"
+                        , "password"
+                        , Set.of(Role.SALESMAN)));
 
+        // Assert
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Some error message", response.getBody());
+        verify(userService, times(1)).addUser(any());
+    }
     /**
      * Test for the {@link EmployeeController#editEmployee(EmployeeEditDto employeeEditDto)} method.
      * Verifies that the endpoint returns a success response after editing an existing user.
@@ -132,10 +153,33 @@ public class EmployeeControllerTest {
                 , Set.of(Role.SALESMAN)));
 
         // Assert
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         verify(userService).editUser(Mockito.any(EmployeeEditDto.class));
     }
+    /**
+     * Test for the {@link EmployeeController#editEmployee(EmployeeEditDto employeeEditDto)} method.
+     * Verifies that the endpoint returns a success response after editing an existing user.
+     */
+    @Test
+    void testEditEmployeeEndpoint_Exception() {
+        // Arrange (no additional setup needed)
+        doThrow(new RuntimeException("Some error message")).when(userService).editUser(any());
 
+        // Act
+        ResponseEntity<?> response = employeeController.editEmployee(new EmployeeEditDto(
+                1L
+                , "test@email.com"
+                , "John Doe"
+                , "123456789"
+                , "testUser"
+                , "password"
+                , Set.of(Role.SALESMAN)));
+
+        // Assert
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Some error message", response.getBody());
+        verify(userService, times(1)).editUser(any());
+    }
     /**
      * Test for the success scenario of retrieving all employee roles.
      */

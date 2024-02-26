@@ -88,7 +88,24 @@ public class SaleAgreementController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
-
+    /**
+     * Endpoint for getting an existing sale agreement.
+     *
+     * @param employee        The authenticated user.
+     * @param id              Id of the sale agreement.
+     * @return ResponseEntity indicating success or failure of the operation.
+     */
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getSaleAgreement(
+            @AuthenticationPrincipal User employee,
+            @PathVariable Long id
+    ) {
+        try {
+            return ResponseEntity.ok(saleAgreementService.getAgreement(id, employee));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
     /**
      * Endpoint for editing an existing sale agreement.
      *

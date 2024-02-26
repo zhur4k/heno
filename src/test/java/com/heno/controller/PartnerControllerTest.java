@@ -1,5 +1,8 @@
 package com.heno.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
 import com.heno.dto.PartnerAddDto;
 import com.heno.dto.PartnerEditDto;
 import com.heno.service.PartnerService;
@@ -11,34 +14,27 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 /**
  * Unit tests for the PartnerController class.
  */
 class PartnerControllerTest {
 
-    // Mocks for dependencies
+    // Mock for dependency
     @Mock
     private PartnerService partnerService;
 
+    private PartnerAddDto partnerAddDto;
+    private PartnerEditDto partnerEditDto;
     // Class under test
     @InjectMocks
     private PartnerController partnerController;
 
-    // Test data
-    private PartnerAddDto partnerAddDto;
-    private PartnerEditDto partnerEditDto;
-
     /**
-     * Set up method to initialize mocks and test data before each test.
+     * Set up method to initialize mocks before each test.
      */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-
         partnerAddDto = new PartnerAddDto(
                 "name",
                 "address",
@@ -57,22 +53,32 @@ class PartnerControllerTest {
                 "email"
         );
     }
+
     /**
-     * Test case for the allPartners method in the PartnerController class.
+     * Test case for the allPartnersPage method in the PartnerController class.
+     * Tests the successful retrieval of the partners page.
      */
     @Test
-    void testAllPartners() {
+    void testAllPartnersPage() {
+        // Given
+        // No additional setup needed for this test case
+
         // When
         String result = partnerController.allPartnersPage();
 
         // Then
         assertEquals("partners", result);
     }
+
     /**
      * Test case for the getAllPartners method in the PartnerController class.
+     * Tests the successful retrieval of all partners.
      */
     @Test
-    void testGetAllPartners() {
+    void testGetAllPartners_Success() {
+        // Given
+        when(partnerService.findAll()).thenReturn(null);
+
         // When
         ResponseEntity<?> response = partnerController.getAllPartners();
 
@@ -80,30 +86,92 @@ class PartnerControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         verify(partnerService, times(1)).findAll();
     }
+
     /**
-     * Test case for the addPartner method in the PartnerController class.
+     * Test case for the getAllPartners method in the PartnerController class.
+     * Tests an exception scenario when an error occurs while retrieving all partners.
      */
     @Test
-    void testAddPartner() {
+    void testGetAllPartners_Exception() {
+        // Given
+        when(partnerService.findAll()).thenThrow(new RuntimeException("Some error message"));
+
+        // When
+        ResponseEntity<?> response = partnerController.getAllPartners();
+
+        // Then
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals("Some error message", response.getBody());
+        verify(partnerService, times(1)).findAll();
+    }
+
+    /**
+     * Test case for the addPartner method in the PartnerController class.
+     * Tests the successful addition of a partner.
+     */
+    @Test
+    void testAddPartner_Success() {
+        // Given
+        doNothing().when(partnerService).addPartner(any());
+
         // When
         ResponseEntity<?> response = partnerController.addPartner(partnerAddDto);
 
         // Then
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        verify(partnerService, times(1)).addPartner(partnerAddDto);
+        verify(partnerService, times(1)).addPartner(any());
+    }
+
+    /**
+     * Test case for the addPartner method in the PartnerController class.
+     * Tests an exception scenario when an error occurs while adding a partner.
+     */
+    @Test
+    void testAddPartner_Exception() {
+        // Given
+        doThrow(new RuntimeException("Some error message")).when(partnerService).addPartner(any());
+
+        // When
+        ResponseEntity<?> response = partnerController.addPartner(partnerAddDto);
+
+        // Then
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Some error message", response.getBody());
+        verify(partnerService, times(1)).addPartner(any());
     }
 
     /**
      * Test case for the editPartner method in the PartnerController class.
+     * Tests the successful editing of a partner.
      */
     @Test
-    void testEditPartner() {
+    void testEditPartner_Success() {
+        // Given
+        doNothing().when(partnerService).editPartner(any());
+
         // When
         ResponseEntity<?> response = partnerController.editPartner(partnerEditDto);
 
         // Then
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        verify(partnerService, times(1)).editPartner(partnerEditDto);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        verify(partnerService, times(1)).editPartner(any());
     }
 
+    /**
+     * Test case for the editPartner method in the PartnerController class.
+     * Tests an exception scenario when an error occurs while editing a partner.
+     */
+    @Test
+    void testEditPartner_Exception() {
+        // Given
+        doThrow(new RuntimeException("Some error message")).when(partnerService).editPartner(any());
+
+        // When
+        ResponseEntity<?> response = partnerController.editPartner(partnerEditDto);
+
+        // Then
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Some error message", response.getBody());
+        verify(partnerService, times(1)).editPartner(any());
+    }
 }

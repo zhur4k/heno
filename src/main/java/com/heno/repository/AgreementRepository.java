@@ -29,4 +29,13 @@ public interface AgreementRepository extends JpaRepository<Agreement,Long> {
      * @return                  A list of agreements that match the specified type.
      */
     List<Agreement> findAllByTypeOfAgreement(String typeOfAgreement);
+    /**
+     * Retrieves an agreement based on the id, specified employee and type of agreement.
+     *
+     * @param id               Id of agreement to filter by.
+     * @param typeOfAgreement  The type of agreement to filter by.
+     * @param employee         The user associated with the agreements.
+     * @return                  An agreement.
+     */
+    Agreement findByIdAndTypeOfAgreementAndEmployee(Long id, String typeOfAgreement, User employee);
 }
