@@ -2,7 +2,6 @@ package com.heno.service;
 
 import com.heno.dto.AgreementToShowInListDto;
 import com.heno.dto.mapper.AgreementToShowInListDtoMapper;
-import com.heno.model.User;
 import com.heno.repository.AgreementRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Service class for managing sale agreements.
+ * Service class for managing agreements.
  */
 @Service
 public class AgreementService {

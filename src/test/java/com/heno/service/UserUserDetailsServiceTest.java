@@ -15,6 +15,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+/**
+ * Unit tests for the UserUserDetailsService class.
+ */
 @ExtendWith(MockitoExtension.class)
 class UserUserDetailsServiceTest {
     @Mock

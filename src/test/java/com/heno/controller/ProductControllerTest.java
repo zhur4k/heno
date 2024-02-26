@@ -15,6 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+/**
+ * Unit tests for the ProductController class.
+ */
 class ProductControllerTest {
 
     // Mocks for dependencies

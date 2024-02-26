@@ -13,6 +13,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Service class for managing currency conversation.
+ */
 @Service
 public class CurrencyConversionService {
 
@@ -20,7 +23,7 @@ public class CurrencyConversionService {
 
     private final RestTemplate restTemplate;
     // Создайте параметризованный тип для List<AgreementCurrency>
-    ParameterizedTypeReference<List<AgreementCurrency>> responseType = new ParameterizedTypeReference<List<AgreementCurrency>>() {
+    ParameterizedTypeReference<List<AgreementCurrency>> responseType = new ParameterizedTypeReference<>() {
     };
     @Autowired
     public CurrencyConversionService(RestTemplate restTemplate) {

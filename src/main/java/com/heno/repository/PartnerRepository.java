@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Buyer entity repository.
+ * Partner entity repository.
  */
 @Repository
 public interface PartnerRepository extends JpaRepository<Partner,Long> {
