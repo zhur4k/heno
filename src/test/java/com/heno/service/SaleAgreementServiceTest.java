@@ -3,9 +3,11 @@ package com.heno.service;
 import com.heno.dto.AgreementToShowInListDto;
 import com.heno.dto.SaleAgreementAddDto;
 import com.heno.dto.SaleAgreementEditDto;
+import com.heno.dto.SaleAgreementGetDto;
 import com.heno.dto.mapper.AgreementToShowInListDtoMapper;
 import com.heno.dto.mapper.SaleAgreementAddDtoMapper;
 import com.heno.dto.mapper.SaleAgreementEditDtoMapper;
+import com.heno.dto.mapper.SaleAgreementGetDtoMapper;
 import com.heno.model.*;
 import com.heno.repository.AgreementRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +40,8 @@ class SaleAgreementServiceTest {
     @Mock
     private SaleAgreementEditDtoMapper saleAgreementEditDtoMapper;
     @Mock
+    private SaleAgreementGetDtoMapper saleAgreementGetDtoMapper;
+    @Mock
     private AgreementToShowInListDtoMapper agreementToShowInListDtoMapper;
 
     @InjectMocks
@@ -46,6 +50,7 @@ class SaleAgreementServiceTest {
     private User mockEmployee;
     private SaleAgreementAddDto mockSaleAgreementAddDto;
     private SaleAgreementEditDto mockSaleAgreementEditDto;
+    private SaleAgreementGetDto mockSaleAgreementGetDto;
 
     @BeforeEach
     void setUp() {
@@ -55,6 +60,20 @@ class SaleAgreementServiceTest {
         mockEmployee = new User(/* initialize user fields */);
         mockSaleAgreementAddDto = new SaleAgreementAddDto(
                 123,  // Number of agreement
+                LocalDate.now(),  // Date of agreement
+                LocalDate.now(),  // Date of registration of agreement
+                LocalDate.now(),  // Date of supplies
+                null,  // Type of the sale (replace with actual SaleType)
+                new Partner(/* initialize Buyer fields */),
+                List.of(new AgreementProduct(/* initialize Product fields */)),
+                null,  // Currency of agreement (replace with actual AgreementCurrency)
+                List.of(new PaymentDate(/* initialize PaymentDate fields */)),
+                new Shipment(/* initialize Shipment fields */),
+                new User(/* initialize User fields */)
+        );
+        mockSaleAgreementGetDto = new SaleAgreementGetDto(
+                123L,
+                12131,
                 LocalDate.now(),  // Date of agreement
                 LocalDate.now(),  // Date of registration of agreement
                 LocalDate.now(),  // Date of supplies
@@ -139,35 +158,25 @@ class SaleAgreementServiceTest {
         verify(mockAgreement, times(1)).setEmployee(mockEmployee);
         verify(agreementRepository, times(1)).save(mockAgreement);
     }
-//    /**
-//     * Test for {@link SaleAgreementService#findAll()}.
-//     * It verifies that the service correctly calls the repository's findAllByTypeOfAgreement method
-//     * with the expected argument and returns the result.
-//     */
-//    @Test
-//    void testFindAll() {
-//        // Arrange
-//        User dummyUser = new User(); // create a dummy user
-//        String expectedTypeOfAgreement = "sale";
-//
-//        // create dummy agreements
-//        List<Agreement> expectedAgreements = Arrays.asList(
-//                new Agreement(/* provide necessary parameters */),
-//                new Agreement(/* provide necessary parameters */)
-//        );
-//
-//        // Mock the repository response
-//        when(agreementRepository.findAllByTypeOfAgreement(expectedTypeOfAgreement))
-//                .thenReturn(expectedAgreements);
-//
-//        // Act
-//        List<Agreement> result = saleAgreementService.findAll();
-//
-//        // Assert
-//        // Verify that the repository method was called with the expected argument
-//        verify(agreementRepository, times(1)).findAllByTypeOfAgreement(expectedTypeOfAgreement);
-//
-//        // Verify that the result matches the expected agreements
-//        assertEquals(expectedAgreements, result);
-//    }
+    @Test
+    void testGetAgreement() {
+        // Given
+        Long mockAgreementId = 123L;
+        Agreement mockAgreement = Mockito.mock(Agreement.class);
+
+        // Mocking repository response
+        when(agreementRepository.findByIdAndTypeOfAgreementAndEmployee(mockAgreementId, "sale", mockEmployee))
+                .thenReturn(mockAgreement);
+
+        // Mocking mapper response
+        when(saleAgreementGetDtoMapper.apply(mockAgreement)).thenReturn(mockSaleAgreementGetDto);
+
+        // When
+        SaleAgreementGetDto result = saleAgreementService.getAgreement(mockAgreementId, mockEmployee);
+
+        // Then
+        assertEquals(mockSaleAgreementGetDto, result);
+        verify(agreementRepository, times(1)).findByIdAndTypeOfAgreementAndEmployee(mockAgreementId, "sale", mockEmployee);
+        verify(saleAgreementGetDtoMapper, times(1)).apply(mockAgreement);
+    }
 }

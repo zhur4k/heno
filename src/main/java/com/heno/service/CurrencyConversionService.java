@@ -96,12 +96,10 @@ public class CurrencyConversionService {
                 null,
                 responseType
         );
-
         // Получите список в ответе
-        List<AgreementCurrency> currencies = responseEntity.getBody();
-        if (currencies == null) {
+        if (responseEntity.getBody() == null) {
             throw new RuntimeException("Failed to retrieve currencies from NB RB API.");
         }
-        return currencies;
+        return responseEntity.getBody();
     }
 }

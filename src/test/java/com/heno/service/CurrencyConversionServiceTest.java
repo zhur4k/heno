@@ -3,13 +3,20 @@ package com.heno.service;
 import com.heno.model.AgreementCurrency;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for CurrencyConversionService.
@@ -30,9 +37,9 @@ public class CurrencyConversionServiceTest {
         fromCurrency.setCur_OfficialRate(new BigDecimal("2.0"));
 
         // Mocking the response from the NB RB API
-        Mockito.when(restTemplateMock.getForObject(
-                        "https://api.nbrb.by/exrates/rates/431",
-                        AgreementCurrency.class))
+        when(restTemplateMock.getForObject(
+                "https://api.nbrb.by/exrates/rates/431",
+                AgreementCurrency.class))
                 .thenReturn(fromCurrency);
 
         // Test conversion to BYN
@@ -54,9 +61,9 @@ public class CurrencyConversionServiceTest {
         toCurrency.setCur_OfficialRate(new BigDecimal("1.5"));
 
         // Mocking the response from the NB RB API
-        Mockito.when(restTemplateMock.getForObject(
-                        "https://api.nbrb.by/exrates/rates/432",
-                        AgreementCurrency.class))
+        when(restTemplateMock.getForObject(
+                "https://api.nbrb.by/exrates/rates/432",
+                AgreementCurrency.class))
                 .thenReturn(toCurrency);
 
         // Test conversion from BYN
@@ -78,7 +85,7 @@ public class CurrencyConversionServiceTest {
         // Test getting cached currency
         AgreementCurrency resultCurrency = currencyConversionService.getExchangeCurrency(cachedCurrency);
         assertEquals(cachedCurrency, resultCurrency, "The cached currency should be returned.");
-        Mockito.verify(restTemplateMock, Mockito.never()).getForObject(Mockito.anyString(), Mockito.eq(AgreementCurrency.class));
+        Mockito.verify(restTemplateMock, Mockito.never()).getForObject(Mockito.anyString(), eq(AgreementCurrency.class));
     }
 
     @Test
@@ -97,16 +104,17 @@ public class CurrencyConversionServiceTest {
         uncachedCurrency2.setCur_date(LocalDate.now()); // Not today
 
         // Mocking the response from the NB RB API
-        Mockito.when(restTemplateMock.getForObject(
-                        "https://api.nbrb.by/exrates/rates/431",
-                        AgreementCurrency.class))
+        when(restTemplateMock.getForObject(
+                "https://api.nbrb.by/exrates/rates/431",
+                AgreementCurrency.class))
                 .thenReturn(uncachedCurrency2);
 
         // Test fetching uncached currency from API
         AgreementCurrency resultCurrency = currencyConversionService.getExchangeCurrency(uncachedCurrency);
         assertEquals(uncachedCurrency2, resultCurrency, "The currency should be fetched from the API.");
-        Mockito.verify(restTemplateMock, Mockito.times(1)).getForObject(Mockito.anyString(), Mockito.eq(AgreementCurrency.class));
+        Mockito.verify(restTemplateMock, Mockito.times(1)).getForObject(Mockito.anyString(), eq(AgreementCurrency.class));
     }
+
     @Test
     public void testGetExchangeCurrency_APIError() {
         // Mocking the RestTemplate
@@ -119,9 +127,9 @@ public class CurrencyConversionServiceTest {
         requestCurrency.setCur_date(LocalDate.now().minusDays(1));
 
         // Mocking an API error response (null)
-        Mockito.when(restTemplateMock.getForObject(
-                        "https://api.nbrb.by/exrates/431",
-                        AgreementCurrency.class))
+        when(restTemplateMock.getForObject(
+                "https://api.nbrb.by/exrates/431",
+                AgreementCurrency.class))
                 .thenReturn(null);
 
         // Test handling API error
@@ -135,7 +143,66 @@ public class CurrencyConversionServiceTest {
         }
 
         // Verify that the RestTemplate was called once
-        Mockito.verify(restTemplateMock, Mockito.times(1)).getForObject(Mockito.anyString(), Mockito.eq(AgreementCurrency.class));
+        Mockito.verify(restTemplateMock, Mockito.times(1)).getForObject(Mockito.anyString(), eq(AgreementCurrency.class));
+    }
+// Your existing code for the setup of RestTemplate and API URL
+
+    @Test
+    public void testGetAllCurrencies_Success() {
+        // Mocking the RestTemplate
+        RestTemplate restTemplateMock = Mockito.mock(RestTemplate.class);
+        CurrencyConversionService currencyConversionService = new CurrencyConversionService(restTemplateMock);
+
+        // Creating a sample list of AgreementCurrency for testing
+        List<AgreementCurrency> expectedCurrencies = Arrays.asList(
+                new AgreementCurrency(),
+                new AgreementCurrency()
+                // Add more AgreementCurrency objects as needed
+        );
+
+        // Mocking the response from the NB RB API
+        when(restTemplateMock.exchange(
+                "https://api.nbrb.by/exrates/currencies",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<AgreementCurrency>>() {
+                }))
+                .thenReturn(ResponseEntity.ok(expectedCurrencies));
+
+        // Test getting all currencies
+        List<AgreementCurrency> resultCurrencies = currencyConversionService.getAllCurrencies();
+
+        // Verify that the returned list is not null and matches the expected list
+        assertNotNull(resultCurrencies, "List of currencies should not be null");
+        assertEquals(expectedCurrencies.size(), resultCurrencies.size(), "Size of the returned list is incorrect");
+        assertTrue(resultCurrencies.containsAll(expectedCurrencies), "Returned list does not contain all expected currencies");
     }
 
+    /**
+     * Test case for the getAllCurrencies method when the response body is null.
+     */
+    @Test
+    void testGetAllCurrenciesWithNullResponseBody() {
+        // Given
+        String apiUrl = "https://api.nbrb.by/exrates/currencies";
+
+        RestTemplate restTemplateMock = Mockito.mock(RestTemplate.class);
+        CurrencyConversionService currencyConversionService = new CurrencyConversionService(restTemplateMock);
+
+        ParameterizedTypeReference<List<AgreementCurrency>> responseType =
+                new ParameterizedTypeReference<List<AgreementCurrency>>() {};
+
+        when(restTemplateMock.exchange(
+                eq(apiUrl),
+                eq(HttpMethod.GET),
+                any(),
+                eq(responseType)))
+                .thenReturn(ResponseEntity.ok().body(null));
+
+        // When
+        RuntimeException exception = assertThrows(RuntimeException.class, currencyConversionService::getAllCurrencies);
+
+        // Then
+        assertEquals("Failed to retrieve currencies from NB RB API.", exception.getMessage());
+    }
 }
