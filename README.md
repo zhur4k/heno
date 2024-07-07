@@ -1,5 +1,5 @@
 Industrial Equipment Brokerage Automation
-Overview
+
 This web application automates the brokerage process for industrial equipment. Built with Spring, Hibernate, and MySQL, it streamlines the management of equipment listings, broker interactions, and transaction handling.
 
 Features
